@@ -1,0 +1,6 @@
+{{ "{% trans_default_domain '" ~ ObjectBaseName ~ "' %}" }}
+
+    <a href="{{ "{{ path('" ~ ApplicationBaseName ~ "_" ~ CurrentBundleBaseName ~ "_" ~ ObjectBaseName ~ "_delete', { 'id': " ~ ObjectBaseName ~ ".id }) }}" }}" class="btn btn-danger {{ "{% if size is defined %}{{ size }}{% endif %}" }}" data-confirm="{{ "{{ 'confirm.delete'|trans({'%id%': " ~ ObjectBaseName ~ ".id }) }}" }}" title="{{ "{{ 'labels.delete'|trans }}" }}">
+        <i class="fa fa-trash"></i>
+        {% verbatim %}{% if size is not defined %}{{ 'labels.delete'|trans }}{% endif %}{% endverbatim %}
+    </a>

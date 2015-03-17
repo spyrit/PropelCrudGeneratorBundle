@@ -1,0 +1,137 @@
+<?php
+
+namespace {{ ApplicationCamelCase }}\{{ CurrentBundleCamelCase }}\Controller;
+
+use {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Form\{{ TypeCamelCase }};
+use {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Model\{{ ObjectCamelCase }};
+use {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Model\{{ QueryCamelCase }};
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Httpfoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * App\{{ CurrentBundleCamelCase }}\Controller\{{ ObjectCamelCase }}
+ */
+class {{ ControllerCamelCase }} extends Controller
+{
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function createAction(Request $request)
+    {
+        ${{ ObjectBaseName }} = new {{ ObjectCamelCase }}();
+        $this->setEditor(${{ ObjectBaseName }});
+
+        $form = $this->createForm(new {{ TypeCamelCase }}(), ${{ ObjectBaseName }}, Array(
+                'action' => $this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_create'),
+                'method' => 'POST',
+        ));
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+
+            if ($form->isValid())
+            {
+                $this->saveForm(${{ ObjectBaseName }}, 'create', '{{ ObjectBaseName }}');
+
+                return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show'));
+            }
+        }
+
+        return $this->render('{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:create.html.twig', Array(
+                'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param {{ ObjectCamelCase }} ${{ ObjectBaseName }}
+     *
+     * @return Response
+     *
+     * @ParamConverter("{{ ObjectBaseName }}", class="{{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Model\{{ ObjectCamelCase }}", options={"mapping": {"id": "id" } })
+     */
+    public function deleteAction(Request $request, {{ ObjectCamelCase }} ${{ ObjectBaseName }})
+    {
+        ${{ ObjectBaseName }}->delete();
+
+        $message = $this->get('translator')->trans('delete.success', Array('%id%' => (string) ${{ ObjectBaseName }}->getId()), '{{ ObjectBaseName }}');
+        $this->get('braincrafted_bootstrap.flash')->success($message);
+        return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_index'));
+    }
+
+    /**
+     * @return Response
+     */
+    public function indexAction()
+    {
+
+        ${{ ObjectBaseName }}s = {{ QueryCamelCase }}::create()->find();
+
+        return $this->render('{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:index.html.twig', Array(
+                '{{ ObjectBaseName }}s' => ${{ ObjectBaseName }}s,
+        ));
+    }
+
+    /**
+     * @param {{ ObjectCamelCase }} ${{ ObjectBaseName }}
+     *
+     * @return Response
+     * @ParamConverter("{{ ObjectBaseName }}", class="{{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Model\{{ ObjectCamelCase }}", options={"mapping": {"id": "id" } })
+     */
+    public function showAction({{ ObjectCamelCase }} ${{ ObjectBaseName }})
+    {
+        $renderPage = '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:show.html.twig';
+
+        return $this->render($renderPage, Array(
+                '{{ ObjectBaseName }}' => ${{ ObjectBaseName }},
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param {{ ObjectCamelCase }} ${{ ObjectBaseName }}
+     *
+     * @return Response
+     * @ParamConverter("{{ ObjectBaseName }}", class="{{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Model\{{ ObjectCamelCase }}", options={"mapping": {"id": "id" } })
+     */
+    public function updateAction(Request $request, {{ ObjectCamelCase }} ${{ ObjectBaseName }})
+    {
+
+        $form = $this->createForm(new {{ TypeCamelCase }}(), ${{ ObjectBaseName }}, Array(
+                'action' => $this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update', Array('id' => ${{ ObjectBaseName }}->getId())),
+                'method' => 'POST',
+        ));
+
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+
+            if ($form->isValid())
+            {
+                $this->setEditor(${{ ObjectBaseName }});
+                $this->saveForm(${{ ObjectBaseName }}, 'update', '{{ ObjectBaseName }}');
+
+                return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show', Array(
+                        'id' => ${{ ObjectBaseName }}->getId(),
+                )));
+            }
+            else
+            {
+                $message = $this->get('translator')->trans('update.failure', Array('%id%' => (string) ${{ ObjectBaseName }}->getId()), '{{ ObjectBaseName }}');
+                $this->get('braincrafted_bootstrap.flash')->error($message);
+                return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update', Array(
+                        'id' => ${{ ObjectBaseName }}->getId(),
+                )));
+            }
+        }
+
+        return $this->render('{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:update.html.twig', Array(
+                '{{ ObjectBaseName }}' => ${{ ObjectBaseName }},
+                'form' => $form->createView(),
+        ));
+    }
+}

@@ -103,6 +103,14 @@ $controllerCamelCase = $objectCamelCase.'Controller';
 $queryCamelCase = $objectCamelCase.'Query';
 $typeCamelCase = $objectCamelCase.'Type';
 
+// Attributes of the object, from schema.
+// @FIXME: should be provided by Propel or Doctrine
+$fields = array(
+                'field1' => 'text',
+                'field2' => 'text',
+                'field3' => 'text'
+);
+
 // set common variables
 $variables = array(
     'ApplicationBaseName' => $applicationBaseName,
@@ -116,6 +124,7 @@ $variables = array(
     'ObjectCamelCase' => $objectCamelCase,
     'QueryCamelCase' => $queryCamelCase,
     'TypeCamelCase' => $typeCamelCase,
+    'fields' => $fields,
 );
 
 $templatesDir = __DIR__.'/../../Resources/templates';

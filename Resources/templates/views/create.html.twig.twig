@@ -1,0 +1,49 @@
+{{ "{% extends '" ~ ApplicationCamelCase ~ CurrentBundleCamelCase ~ "::base.html.twig' %}" }}
+
+{{ "{% trans_default_domain '" ~ ObjectBaseName ~ "' %}" }}
+{% verbatim %}
+{% set create_title = 'create.title'|trans %}
+
+{% block title %}
+    {{ create_title|striptags }}
+{% endblock %}
+
+{% block body_title_p1 %}
+    {{ create_title|raw }}
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, { 'attr': { 'class': form.vars.errors|length > 0 ? 'has-error' : '' } }) }}
+    {{ form_errors(form) }}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ 'labels.new'|trans }}</div>
+{% endverbatim %}
+        <div class="panel-body" id="{{ ObjectBaseName }}">
+            <div class="form-horizontal">
+                <div class="row">
+                    {{ "{% include '" ~ ApplicationCamelCase ~ CurrentBundleCamelCase ~ ":" ~ ObjectCamelCase ~ ":_form.html.twig' with { 'form': form } %}" }}
+{% verbatim %}
+                    {{ form_rest(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-sm-offset-2">
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-check"></i>
+                            {{ 'btn.create.do'|trans }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+{% endverbatim %}

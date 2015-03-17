@@ -1,0 +1,48 @@
+<?php
+
+namespace {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+/**
+ * {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Form\{{ TypeCamelCase }}
+ */
+class {{ TypeCamelCase }} extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, Array $options)
+    {
+        $builder
+{% for field, type in fields %}
+            ->add('{{ field }}', '{{ type }}', Array(
+                'label' => 'labels.{{ field }}',
+                'constraints' => Array(
+                ),
+            ))
+{% endfor %};
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(Array(
+                'translation_domain' => '{{ ObjectBaseName }}',
+                'data_class' => '{{ ApplicationCamelCase }}\\{{ CoreBundleCamelCase }}\\Model\\{{ ObjectCamelCase }}',
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return '{{ ObjectBaseName }}';
+    }
+}

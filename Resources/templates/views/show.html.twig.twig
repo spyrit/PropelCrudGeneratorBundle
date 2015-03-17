@@ -1,0 +1,41 @@
+{{ "{% extends '" ~ ApplicationCamelCase ~ CurrentBundleCamelCase ~ "::base.html.twig' %}" }}
+
+{{ "{% trans_default_domain '" ~ ObjectBaseName ~ "' %}" }}
+
+{{ "{% set show_title = 'show.title'|trans({'%id%': " ~ ObjectBaseName ~ ".id}) %}" }}
+{% verbatim %}
+{% block title %}
+    {{ show_title|striptags }}
+{% endblock %}
+
+{% block body_title_p1 %}
+    {{ show_title|raw }}
+{% endblock %}
+
+{% block body_title_p2 %}
+{% endverbatim %}
+        <a class="btn btn-info" href="{{ "{{" }} path('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update', { 'id': {{ ObjectBaseName }}.id }) {{ "}}" }}" title="{{ "{{" }} 'labels.edit'|trans {{ "}}" }}">
+            <i class="fa fa-pencil"></i>
+            {% verbatim %}{{ 'labels.edit'|trans }}{% endverbatim %}
+        </a>
+        {{ "{% include '" ~ ApplicationCamelCase ~ CurrentBundleCamelCase ~ ":" ~ ObjectCamelCase ~ ":_btn_delete.html.twig' %}" }}
+{% verbatim %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ 'labels.recap'|trans }}</div>
+        <div class="panel-body">
+            <fieldset>{% endverbatim %}
+{% for field, type in fields %}
+                <dl>
+                    <dt>{{ "{{ 'labels." ~ field ~ "'|trans }}" }}</dt>
+                    <dd>{{ "{{ " ~ ObjectBaseName ~ "." ~ field ~ " }}" }}</dd>
+                </dl>
+{% endfor %}
+            </fieldset>
+        </div>
+    </div>
+
+{% verbatim %}{% endblock %}{% endverbatim %}

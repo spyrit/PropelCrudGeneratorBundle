@@ -1,0 +1,30 @@
+{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_create:
+    path: "/{{ ObjectBaseName }}/create"
+    defaults: { _controller: {{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:create }
+    methods: get|post
+
+{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_delete:
+    path: "/{{ ObjectBaseName }}/{id}/delete"
+    defaults: { _controller: {{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:delete }
+    methods: get
+    requirements:
+        id:  \d+
+
+{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_index:
+    path: "/{{ ObjectBaseName }}s"
+    defaults: { _controller: {{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:index }
+    methods: get
+
+{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show:
+    path: "/{{ ObjectBaseName }}/{id}/show"
+    defaults: { _controller: {{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:show }
+    methods: get
+    requirements:
+        id: \d+
+
+{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update:
+    path: "/{{ ObjectBaseName }}/{id}/update"
+    defaults: { _controller: {{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:update }
+    methods: get|post
+    requirements:
+        id: \d+
