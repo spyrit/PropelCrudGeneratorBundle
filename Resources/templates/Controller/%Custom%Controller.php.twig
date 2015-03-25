@@ -37,7 +37,9 @@ class {{ ControllerCamelCase }} extends Controller
             {
                 $this->saveForm(${{ ObjectBaseName }}, 'create', '{{ ObjectBaseName }}');
 
-                return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show'));
+                return $this->redirect($this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show', Array(
+                        'id' => ${{ ObjectBaseName }}->getId(),
+                )));
             }
         }
 
@@ -84,9 +86,7 @@ class {{ ControllerCamelCase }} extends Controller
      */
     public function showAction({{ ObjectCamelCase }} ${{ ObjectBaseName }})
     {
-        $renderPage = '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:show.html.twig';
-
-        return $this->render($renderPage, Array(
+        return $this->render('{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:{{ ObjectCamelCase }}:show.html.twig', Array(
                 '{{ ObjectBaseName }}' => ${{ ObjectBaseName }},
         ));
     }

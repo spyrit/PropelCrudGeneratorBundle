@@ -1,0 +1,85 @@
+{{ "{% extends '" ~ ApplicationCamelCase ~ CurrentBundleCamelCase ~ "::base.html.twig' %}" }}
+
+{{ "{% trans_default_domain '" ~ ObjectBaseName ~ "' %}" }}
+{% verbatim %}
+{% set index_title = 'index.title'|trans %}
+
+{% block title %}
+    {{ index_title|striptags }}
+{% endblock %}
+
+{% block body_title_p1 %}
+    {{ index_title|raw }}
+{% endblock %}
+
+{% block body_title_p2 %}
+{% endverbatim %}
+        <a class="btn btn-primary" href="{{ "{{" }} path('app_admin_{{ ObjectBaseName }}_create') {{ "}}" }}">
+            <i class="fa fa-plus"></i>
+            {{ "{{" }} 'btn.create'|trans {{ "}}" }}
+        </a>
+{% verbatim %}
+{% endblock %}
+
+{% block body %}
+{% endverbatim %}
+    <div id="{{ ObjectBaseName }}s" class="table-responsive">
+{% verbatim %}
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ 'table.title'|trans }}</div>
+{% endverbatim %}
+            <div id="{{ ObjectBaseName }}" class="table-responsive">
+                {{ "{%" }} if {{ ObjectBaseName }}|length > 0 {{ "%}" }}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+{% for field,type in fields %}
+                                <th>{{ "{{" }} 'labels.{{ field }}'|trans {{ "}}" }}</th>
+{% endfor %}
+                                <th>{{ "{{" }} 'labels.actions'|trans {{ "}}" }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ "{%" }} for {{ ObjectBaseName }} in {{ ObjectBaseName }}s {{ "%}" }}
+                                {{ "{%" }} set href = path('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_show', { 'id': {{ ObjectBaseName }}.id }) {{ "%}" }}
+                                <tr>
+{% for field,type in fields %}
+                                    <td><a href="{{ "{{" }} href {{ "}}" }}">{{ "{{" }} {{ ObjectBaseName }}.{{ field }} {{ "}}" }}</a></td>
+{% endfor %}
+                                    <td>
+                                        <a class="btn btn-sm btn-info" href="{{ "{{" }} path('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update', { 'id': {{ ObjectBaseName }}.id }) {{ "}}" }}" title="{{ "{{" }} 'labels.edit'|trans {{ "}}" }}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+{% verbatim %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>{{ 'index.empty'|trans }}</p>
+                {% endif %}
+            </div>
+
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="navigation col-md-4 ">
+{% endverbatim %}
+                        <a class="btn btn-primary" href="{{ "{{" }} path('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_create') {{ "}}" }}">
+                            <i class="fa fa-plus"></i>
+                            {{ "{{" }} 'btn.create.{{ ObjectBaseName }}'|trans {{ "}}" }}
+                        </a>
+                    </div>
+                    <div class="navigation col-md-4 ">
+                        {{ "{%" }} include '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:Pagination:_pagination.html.twig' with { 'pager': {{ ObjectBaseName }}s, 'route': '{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_index', 'extra_params': {} } {{ "%}" }}
+                    </div>
+                    <div class="navigation col-md-4 ">
+                        {{ "{%" }} include '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:Pagination:_pagination_info.html.twig' with { 'pager': {{ ObjectBaseName }}s } {{ "%}" }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% verbatim %}
+{% endblock %}
+{% endverbatim %}
