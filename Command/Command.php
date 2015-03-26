@@ -27,8 +27,8 @@ class Command extends GeneratorAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $templates_path = $input->hasArgument('templates_path') ? $input->getArgument('templates_path') : __DIR__.'/../Resources/templates';
-        $output_path = $input->hasArgument('output_path') ? $input->getArgument('output_path') : __DIR__.'/../Generated';
+        $templates_path = $input->hasOption('templates_path') ? $input->getOption('templates_path') : __DIR__.'/../Resources/templates';
+        $output_path = $input->hasOption('output_path') ? $input->getOption('output_path') : __DIR__.'/../Generated';
         $output->writeln("Templates path: ".$templates_path.".");
         $output->writeln("Output path: ".$output_path.".");
 
