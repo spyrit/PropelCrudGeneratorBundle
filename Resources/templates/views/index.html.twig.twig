@@ -16,20 +16,20 @@
 {% endverbatim %}
         <a class="btn btn-primary" href="{{ "{{" }} path('app_admin_{{ ObjectBaseName }}_create') {{ "}}" }}">
             <i class="fa fa-plus"></i>
-            {{ "{{" }} 'btn.create'|trans {{ "}}" }}
+            {{ "{{" }} 'btn.create.{{ ObjectBaseName }}'|trans {{ "}}" }}
         </a>
 {% verbatim %}
 {% endblock %}
 
 {% block body %}
 {% endverbatim %}
-    <div id="{{ ObjectBaseName }}s" class="table-responsive">
+    <div id="{{ ObjectBaseName }}s">
 {% verbatim %}
         <div class="panel panel-default">
             <div class="panel-heading">{{ 'table.title'|trans }}</div>
 {% endverbatim %}
-            <div id="{{ ObjectBaseName }}" class="table-responsive">
-                {{ "{%" }} if {{ ObjectBaseName }}|length > 0 {{ "%}" }}
+            <div id="{{ ObjectBaseName }}" class="panel-body table-responsive">
+                {{ "{%" }} if {{ ObjectBaseName }}s|length > 0 {{ "%}" }}
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -63,17 +63,17 @@
 
             <div class="panel-footer">
                 <div class="row">
-                    <div class="navigation col-md-4 ">
+                    <div class="navigation col-md-4">
 {% endverbatim %}
                         <a class="btn btn-primary" href="{{ "{{" }} path('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_create') {{ "}}" }}">
                             <i class="fa fa-plus"></i>
                             {{ "{{" }} 'btn.create.{{ ObjectBaseName }}'|trans {{ "}}" }}
                         </a>
                     </div>
-                    <div class="navigation col-md-4 ">
+                    <div class="navigation col-md-4">
                         {{ "{%" }} include '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:Pagination:_pagination.html.twig' with { 'pager': {{ ObjectBaseName }}s, 'route': '{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_index', 'extra_params': {} } {{ "%}" }}
                     </div>
-                    <div class="navigation col-md-4 ">
+                    <div class="navigation col-md-4">
                         {{ "{%" }} include '{{ ApplicationCamelCase }}{{ CurrentBundleCamelCase }}:Pagination:_pagination_info.html.twig' with { 'pager': {{ ObjectBaseName }}s } {{ "%}" }}
                     </div>
                 </div>

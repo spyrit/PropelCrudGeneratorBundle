@@ -4,7 +4,7 @@
 {% for field, type in fields %}
     <div class="form-group {{ "{{" }} form.{{ field }}.vars.errors|length > 0 ? 'has-error' : '' {{ "}}" }}">
         {{ "{{" }} form_label(form.{{ field }}, null, { 'label_attr': { 'class': 'col-sm-2 control-label' } }) {{ "}}" }}
-        <div class="col-sm-10 w-md">
+        <div class="col-sm-10">
             {{ "{{" }} form_widget(form.{{ field }}) {{ "}}" }}
             <span class="help-block">{{ "{{" }} form_errors(form.{{ field }}) {{ "}}" }}</span>
         </div>
