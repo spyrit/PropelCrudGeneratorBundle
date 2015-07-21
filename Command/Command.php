@@ -20,15 +20,15 @@ class Command extends GeneratorAwareCommand
             ->setDescription('Generate a CRUD')
             ->addArgument('class_name', InputArgument::REQUIRED, 'The class for which the CRUD will be generated.')
             ->addArgument('bundle', InputArgument::REQUIRED, 'The bundle in which the class is defined.')
-            ->addOption('templates_path', null, InputOption::VALUE_OPTIONAL, 'The path containing the templates.')
-            ->addOption('output_path', null, InputOption::VALUE_OPTIONAL, 'The path in which the files will be generated.')
+            ->addOption('templates_path', null, InputOption::VALUE_OPTIONAL, 'The path containing the templates.', __DIR__.'/../Resources/templates')
+            ->addOption('output_path', null, InputOption::VALUE_OPTIONAL, 'The path in which the files will be generated.', __DIR__.'/../Generated')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $templates_path = $input->hasOption('templates_path') ? $input->getOption('templates_path') : __DIR__.'/../Resources/templates';
-        $output_path = $input->hasOption('output_path') ? $input->getOption('output_path') : __DIR__.'/../Generated';
+        $templates_path = $input->getOption('templates_path');
+        $output_path = $input->getOption('output_path');
         $output->writeln("Templates path: ".$templates_path.".");
         $output->writeln("Output path: ".$output_path.".");
 
