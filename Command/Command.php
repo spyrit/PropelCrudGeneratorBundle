@@ -3,7 +3,7 @@
 namespace Spyrit\PropelCrudGeneratorBundle\Command;
 
 use Spyrit\PropelCrudGeneratorBundle\Generator\Generator;
-use Propel\PropelBundle\Command\GeneratorAwareCommand;
+use Propel\Bundle\PropelBundle\Command\GeneratorAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
