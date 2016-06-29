@@ -10,12 +10,12 @@ class Generator
     protected static function create($filename, $templatesDir, $outputDir, $variables) {
         // create a generator
         $generator = new Generator();
-        $generator->setTemplateDirs(array($templatesDir));
+        $generator->setTemplateDirs([$templatesDir]);
         $generator->setTemplateName($filename);
         $generator->setOutputDir($outputDir);
         $outputName = str_replace(
-                array('%custom%', '%Custom%'),
-                array($variables['ObjectBaseName'], $variables['ObjectCamelCase']),
+                ['%custom%', '%Custom%'],
+                [$variables['ObjectBaseName'], $variables['ObjectCamelCase']],
                 $filename);
         $outputName = preg_replace('/.twig$/i', '', $outputName, 1);
         $generator->setOutputName($outputName);
@@ -76,11 +76,11 @@ class Generator
     protected function getCode()
     {
         $loader = new \Twig_Loader_Filesystem($this->template_dirs);
-        $twig = new \Twig_Environment($loader, array(
-                        'autoescape' => false,
-                        'strict_variables' => true,
-                        'debug' => true,
-        ));
+        $twig = new \Twig_Environment($loader, [
+            'autoescape' => false,
+            'strict_variables' => true,
+            'debug' => true,
+        ]);
 
         $template = $twig->loadTemplate($this->template_name);
 
@@ -111,20 +111,21 @@ class Generator
         $queryCamelCase = $objectCamelCase.'Query';
         $typeCamelCase = $objectCamelCase.'Type';
 
-        $variables = array(
-                        'ApplicationBaseName' => $applicationBaseName,
-                        'ApplicationCamelCase' => $applicationCamelCase,
-                        'ControllerCamelCase' => $controllerCamelCase,
-                        'CoreBundleBaseName' => $coreBundleBaseName,
-                        'CoreBundleCamelCase' => $coreBundleCamelCase,
-                        'CurrentBundleBaseName' => $currentBundleBaseName,
-                        'CurrentBundleCamelCase' => $currentBundleCamelCase,
-                        'ObjectBaseName' => $objectBaseName,
-                        'ObjectCamelCase' => $objectCamelCase,
-                        'QueryCamelCase' => $queryCamelCase,
-                        'TypeCamelCase' => $typeCamelCase,
-                        'fields' => $fields,
-        );
+        $variables = [
+            'ApplicationBaseName' => $applicationBaseName,
+            'ApplicationCamelCase' => $applicationCamelCase,
+            'ControllerCamelCase' => $controllerCamelCase,
+            'CoreBundleBaseName' => $coreBundleBaseName,
+            'CoreBundleCamelCase' => $coreBundleCamelCase,
+            'CurrentBundleBaseName' => $currentBundleBaseName,
+            'CurrentBundleCamelCase' => $currentBundleCamelCase,
+            'ObjectBaseName' => $objectBaseName,
+            'ObjectCamelCase' => $objectCamelCase,
+            'QueryCamelCase' => $queryCamelCase,
+            'TypeCamelCase' => $typeCamelCase,
+            'fields' => $fields,
+            'types' => array_unique($fields),
+        ];
 
         $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($templates_dir));
 

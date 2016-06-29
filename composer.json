@@ -17,9 +17,8 @@
         "propel/propel-bundle": "3.0.x-dev"
     },
     "autoload": {
-        "psr-0": {
-            "Spyrit\\PropelCrudGeneratorBundle": ""
-        }
+        "psr-4": { "Spyrit\\PropelCrudGeneratorBundle\\": "" },
+        "exclude-from-classmap": [ "Resources/" ]
     },
     "target-dir": "Spyrit/PropelCrudGeneratorBundle"
 }

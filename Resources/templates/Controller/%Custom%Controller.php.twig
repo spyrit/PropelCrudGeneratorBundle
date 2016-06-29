@@ -25,7 +25,7 @@ class {{ ControllerCamelCase }} extends Controller
         ${{ ObjectBaseName }} = new {{ ObjectCamelCase }}();
         $this->setEditor(${{ ObjectBaseName }});
 
-        $form = $this->createForm(new {{ TypeCamelCase }}(), ${{ ObjectBaseName }}, Array(
+        $form = $this->createForm({{ TypeCamelCase }}::class, ${{ ObjectBaseName }}, Array(
                 'action' => $this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_create'),
                 'method' => 'POST',
         ));
@@ -101,7 +101,7 @@ class {{ ControllerCamelCase }} extends Controller
     public function updateAction(Request $request, {{ ObjectCamelCase }} ${{ ObjectBaseName }})
     {
 
-        $form = $this->createForm(new {{ TypeCamelCase }}(), ${{ ObjectBaseName }}, Array(
+        $form = $this->createForm({{ TypeCamelCase }}::class, ${{ ObjectBaseName }}, Array(
                 'action' => $this->generateUrl('{{ ApplicationBaseName }}_{{ CurrentBundleBaseName }}_{{ ObjectBaseName }}_update', Array('id' => ${{ ObjectBaseName }}->getId())),
                 'method' => 'POST',
         ));

@@ -3,6 +3,9 @@
 namespace {{ ApplicationCamelCase }}\{{ CoreBundleCamelCase }}\Form;
 
 use Symfony\Component\Form\AbstractType;
+{% for type in types %}
+use Symfony\Component\Form\Extension\Core\Type\{{ type }}Type;
+{% endfor %}
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,7 +22,7 @@ class {{ TypeCamelCase }} extends AbstractType
     {
         $builder
 {% for field, type in fields %}
-            ->add('{{ field }}', '{{ type }}', Array(
+            ->add('{{ field }}', {{ type }}Type::class, Array(
                 'label' => 'labels.{{ field }}',
                 'constraints' => Array(
                 ),
