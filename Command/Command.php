@@ -39,6 +39,7 @@ class Command extends AbstractCommand
         $phpName = ucfirst($input->getArgument('class_name'));
         $kernel = $this->getApplication()->getKernel();
 
+        $bundle = null;
         if ($input->hasArgument('bundle') && '@' === substr($input->getArgument('bundle'), 0, 1)) {
             $bundle = $this->getContainer()->get('kernel')->getBundle(substr($input->getArgument('bundle'), 1));
         }
